@@ -1,4 +1,4 @@
-# TIPO GUI
+# TIPO WebUI
 
 [SEE ENGLISH VERSION](README-en.md)
 
@@ -6,11 +6,11 @@
 
 ## 琥珀青葉大佬的`TIPO`的 GUI 版本
 
-要查看`TIPO`的模型权重，前往镜像站：[200M](https://hf-mirror.com/KBlueLeaf/TIPO-200M)、[500M](https://hf-mirror.com/KBlueLeaf/TIPO-500M)、[GGUF(QuantFactory)](https://hf-mirror.com/QuantFactory/TIPO-500M-GGUF)  
-或者有能力的可以直接去原站点：[200M](https://huggingface.co/KBlueLeaf/TIPO-200M)、[500M](https://huggingface.co/KBlueLeaf/TIPO-500M)、[GGUF(QuantFactory)](https://huggingface.co/QuantFactory/TIPO-500M-GGUF)  
+要查看`TIPO`的模型权重，前往镜像站：[原模型](https://hf-mirror.com/collections/KBlueLeaf/tipo-66f9108eee826b5daad0d4bf)，或者自行去搜索其他的量化版本  
+或者有能力的可以直接去原站点：[Huggingface](https://huggingface.co/collections/KBlueLeaf/tipo-66f9108eee826b5daad0d4bf)  
 [琥珀佬的Github主页](https://github.com/KohakuBlueleaf)
 
-感谢[ GLM4 ](https://chatglm.cn/main/alltoolsdetail?lang=zh)提供的一部分代码（技术太菜了，所以不得不用一下 AI ）
+一部分代码由[ GLM4 ](https://chatglm.cn/main/alltoolsdetail?lang=zh)
 
 ## 依赖
 
@@ -21,6 +21,8 @@ llama-cpp-python
 gradio
 pyperclip
 ```
+
+如果你想用`TEST.py`，那么你需要额外安装`kgen`这个库
 
 ## 使用方法
 

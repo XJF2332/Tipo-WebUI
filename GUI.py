@@ -86,54 +86,48 @@ def unload_model():
 ##########################
 
 # 生成提示词
-def upsampling_prompt(quality_tags, mode_tags, length_tags, tags, max_token, temp, Seed, top_p, min_p, top_k, rating,
-                      artist, characters, meta, length, width):
+def gen_prompt(quality_tags, mode_tags, length_tags, tags, max_token, temp, Seed, top_p, min_p, top_k, rating,
+               artist, characters, meta, length, width):
     aspect_ratio = round(length / width, 1)
 
     if llm is None:
         return locale["model_not_loaded"]
-
-    if mode_tags == "None" or mode_tags == "tag_to_long" or mode_tags == "tag_to_short_to_long":
-        output = llm(
-            f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\ntag: {tags}",
-            # Prompt
-            max_tokens=max_token,
-            echo=True,
-            temperature=temp,
-            seed=Seed,
-            top_p=top_p,
-            min_p=min_p,
-            top_k=top_k
-        )
-    elif mode_tags == "long_to_tag":
-        output = llm(
-            f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\nlong: {tags}",
-            # Prompt
-            max_tokens=max_token,
-            echo=True,
-            temperature=temp,
-            seed=Seed,
-            top_p=top_p,
-            min_p=min_p,
-            top_k=top_k
-        )
     else:
-        output = llm(
-            f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\nshort: {tags}",
-            # Prompt
-            max_tokens=max_token,
-            echo=True,
-            temperature=temp,
-            seed=Seed,
-            top_p=top_p,
-            min_p=min_p,
-            top_k=top_k
-        )
+        if mode_tags == "None" or mode_tags == "tag_to_long" or mode_tags == "tag_to_short_to_long":
+            output = llm.create_completion(
+                f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\ntag: {tags}",
+                max_tokens=max_token,
+                echo=True,
+                temperature=temp,
+                seed=Seed,
+                top_p=top_p,
+                min_p=min_p,
+                top_k=top_k
+            )
+        elif mode_tags == "long_to_tag":
+            output = llm.create_completion(
+                f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\nlong: {tags}",
+                max_tokens=max_token,
+                echo=True,
+                temperature=temp,
+                seed=Seed,
+                top_p=top_p,
+                min_p=min_p,
+                top_k=top_k
+            )
+        else:
+            output = llm.create_completion(
+                f"quality: {quality_tags}\naspect ratio: {aspect_ratio}\ntarget: <|{length_tags}|> <|{mode_tags}|>\nrating: {rating}\nartist: {artist}\ncharacters: {characters}\nmeta: {meta}\nshort: {tags}",
+                max_tokens=max_token,
+                echo=True,
+                temperature=temp,
+                seed=Seed,
+                top_p=top_p,
+                min_p=min_p,
+                top_k=top_k
+            )
 
-    # for testing
-    # print(output)
-
-    return output['choices'][0]['text']
+        return output['choices'][0]['text']
 
 
 ##########################
@@ -151,7 +145,7 @@ def send_artist_to_end(text):
 
 def gen_artist_str(prompt, max_token, temp, Seed, top_p, min_p, top_k):
     prompt = send_artist_to_end(prompt)
-    output = llm(
+    output = llm.create_completion(
         prompt,
         max_tokens=max_token,
         echo=True,
@@ -386,7 +380,7 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
     # -------------------------
     # 写提示词
     upsampling_btn.click(
-        fn=upsampling_prompt,
+        fn=gen_prompt,
         inputs=[quality_tags, mode_tags, length_tags, tags, max_tokens, temprature, Seed, top_p, min_p, top_k,
                 rating_tags, artist_tags, character_tags, meta_tags, img_length, img_width],
         outputs=raw_output

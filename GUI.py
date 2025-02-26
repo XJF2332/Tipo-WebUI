@@ -69,6 +69,8 @@ def random_seed():
 # 加载模型
 def load_model(model_path, gpu, n_ctx):
     global llm
+    if not model_path:
+        return locale["no_model"]
     llm = None
     llm = Llama(model_path=model_path, n_gpu_layers=gpu, n_ctx=n_ctx)
     return locale["load_model_success"].format(model_path=model_path)
@@ -267,11 +269,22 @@ def copy_to_clipboard(output):
 # 获得模型列表
 print(locale["model_searching"])
 available_models = list_model_files()
+print(locale["gradio_launching"])
 
 ##########################
 
-print(locale["gradio_launching"])
+# 刷新模型列表
+def refresh_model_list(current_choice):
+    new_list = list_model_files()
 
+    if current_choice in new_list:
+        new_value = current_choice
+    elif new_list != []:
+        new_value = new_list[0]
+    else:
+        new_value = None
+    
+    return gr.Dropdown(show_label=False, choices=new_list, scale=9, value=new_value, interactive=True)
 ##########################
 
 # 加载教程
@@ -351,7 +364,9 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
             with gr.Tab(locale["tab_settings"]):
                 # 模型设置
                 gr.Markdown(locale["model_settings"])
-                model_selector = gr.Dropdown(label=locale["model_select"], choices=available_models)
+                with gr.Row(equal_height=True):
+                    model_list = gr.Dropdown(show_label=False, choices=available_models, scale=9, value=available_models[0] if available_models != [] else None)
+                    refresh_model_list_btn = gr.Button("🔄", scale=1, min_width=5, interactive=True)
                 with gr.Row():
                     n_ctx = gr.Number(label="n_ctx", value=2048)
                     n_gpu_layers = gr.Number(label="n_gpu_layers", value=-1)
@@ -403,7 +418,7 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
     # 加载模型
     load_btn.click(
         fn=load_model,
-        inputs=[model_selector, n_gpu_layers, n_ctx],
+        inputs=[model_list, n_gpu_layers, n_ctx],
         outputs=load_feedback
     )
 
@@ -442,6 +457,14 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
         fn=gen_artist_str,
         inputs=[raw_output, max_tokens, temprature, Seed2, top_p, min_p, top_k],
         outputs=artist_tags_textbox
+    )
+
+    # -------------------------
+    # 刷新模型列表
+    refresh_model_list_btn.click(
+        fn=refresh_model_list,
+        inputs=model_list,
+        outputs=model_list
     )
 
 

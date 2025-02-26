@@ -21,6 +21,7 @@
     "model_select": "选择模型",
     "model_settings": "模型设置",
     "model_unload": "卸载模型",
+    "no_model": "未找到模型，请先将模型下载到`models`文件夹中",
     "nl": "自然语言",
     "quality": "预期质量",
     "random_seed": "随机",

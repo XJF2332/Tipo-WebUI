@@ -299,13 +299,22 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
                     # 模式和长度标签
                     mode_tags = gr.Dropdown(
                         label=locale["mode"],
-                        choices=["None", "tag_to_long", "long_to_tag", "short_to_long", "short_to_tag",
-                                 "tag_to_short_to_long", "short_to_tag_to_long", "short_to_long_to_tag"],
+                        choices=[(locale["dropdown"]["mode_none"], "None"),
+                                 (locale["dropdown"]["mode_tag2long"], "tag_to_long"),
+                                 (locale["dropdown"]["mode_long2tag"], "long_to_tag"),
+                                 (locale["dropdown"]["mode_short2long"], "short_to_long"),
+                                 (locale["dropdown"]["mode_short2tag"], "short_to_tag"),
+                                 (locale["dropdown"]["mode_tag2short2long"], "tag_to_short_to_long"),
+                                 (locale["dropdown"]["mode_short2tag2long"], "short_to_tag_to_long"),
+                                 (locale["dropdown"]["mode_short2long2tag"], "short_to_long_to_tag")],
                         value="None"
                     )
                     length_tags = gr.Dropdown(
                         label=locale["length"],
-                        choices=["very_short", "short", "long", "very_long"],
+                        choices=[(locale["dropdown"]["length_veryshort"], "very_short"),
+                                 (locale["dropdown"]["length_short"], "short"),
+                                 (locale["dropdown"]["length_long"], "long"),
+                                 (locale["dropdown"]["length_verylong"], "very_long")],
                         value="short"
                     )
                 with gr.Row():
@@ -314,7 +323,11 @@ with gr.Blocks(theme=theme, title="TIPO") as demo:
                     banned_tags = gr.Textbox(label=locale["banned_tags"])
                 with gr.Row():
                     # 分级和画师
-                    rating_tags = gr.Dropdown(label=locale["rating"], choices=["safe", "sensitive", "nsfw", "explicit"],
+                    rating_tags = gr.Dropdown(label=locale["rating"],
+                                              choices=[(locale["dropdown"]["rating_safe"], "safe"),
+                                                       (locale["dropdown"]["rating_sensitive"], "sensitive"),
+                                                       (locale["dropdown"]["rating_nsfw"], "nsfw"),
+                                                       (locale["dropdown"]["rating_explicit"], "explicit")],
                                               value="safe")
                     artist_tags = gr.Textbox(label=locale["artist"])
                 with gr.Row():

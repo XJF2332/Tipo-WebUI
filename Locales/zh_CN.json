@@ -34,5 +34,23 @@
     "img_length": "图片长度",
     "img_width": "图片宽度",
     "generate_artists": "生成画师串",
-    "tab_artist": "画师串"
+    "tab_artist": "画师串",
+    "dropdown": {
+        "mode_none": "仅标签",
+        "mode_tag2long": "标签到长自然语言",
+        "mode_long2tag": "长自然语言到标签",
+        "mode_short2long": "短自然语言到长自然语言",
+        "mode_short2tag": "短自然语言到标签",
+        "mode_tag2short2long": "标签、短自然语言和长自然语言",
+        "mode_short2tag2long": "短自然语言、标签和长自然语言",
+        "mode_short2long2tag": "短自然语言、长自然语言和标签",
+        "length_veryshort": "非常短",
+        "length_short": "短",
+        "length_long": "长",
+        "length_verylong": "非常长",
+        "rating_safe": "全年龄",
+        "rating_sensitive": "敏感",
+        "rating_nsfw": "NSFW",
+        "rating_explicit": "露骨"
+    }
 }

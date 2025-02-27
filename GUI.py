@@ -69,11 +69,14 @@ def random_seed():
 # 加载模型
 def load_model(model_path, gpu, n_ctx):
     global llm
-    if not model_path:
-        return locale["no_model"]
-    llm = None
-    llm = Llama(model_path=model_path, n_gpu_layers=gpu, n_ctx=n_ctx)
-    return locale["load_model_success"].format(model_path=model_path)
+    try:
+        if not model_path:
+            return locale["no_model"]
+        llm = None
+        llm = Llama(model_path=model_path, n_gpu_layers=gpu, n_ctx=n_ctx)
+        return locale["load_model_success"].format(model_path=model_path)
+    except Exception as e:
+        return str(e)
 
 
 ##########################

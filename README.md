@@ -16,7 +16,7 @@
 
 llama-cpp-python 最好要 GPU 版的，在 CPU 版本下`n_gpu_layers`参数不会生效
 
-```
+```text
 llama-cpp-python
 gradio
 pyperclip

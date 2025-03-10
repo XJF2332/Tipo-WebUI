@@ -13,7 +13,7 @@
     "length": "目标长度",
     "load_model_success": "模型 {model_path} 已加载",
     "locale_load_success": "语言文件加载成功！",
-    "meta": "Meta（我也不会翻译谁能教教我）",
+    "meta": "Meta",
     "mode": "模式",
     "model_load": "加载模型",
     "model_not_loaded": "模型未加载",
